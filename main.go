@@ -9,7 +9,83 @@ import (
 )
 
 func main() {
-	fmt.Println(nextGreaterElement([]int{1, 3, 4, 2}, []int{3, 9, 4, 2, 9, 4, 1}))
+	fmt.Println(minimumFlips(7))
+}
+
+func minimumFlips(n int) int {
+	res := 0
+	// convert int to binary
+	binStr := ""
+	for n > 0 {
+		binStr = strconv.Itoa(n%2) + binStr
+		n /= 2
+	}
+	//fmt.Println(binStr)
+	// count minimum flip
+	for i := 0; i < len(binStr)/2; i++ {
+		if binStr[i] != binStr[len(binStr)-1-i] {
+			res += 2
+		}
+	}
+	return res
+}
+
+func generateTag(caption string) string {
+	arr := strings.Split(caption, " ")
+	res := "#"
+	for _, s := range arr {
+		s = strings.TrimSpace(s)
+		if len(s) == 0 {
+			continue
+		}
+		if len(res) == 1 {
+			res += strings.ToLower(s)
+			continue
+		}
+
+		res += strings.ToUpper(s[0:1]) + strings.ToLower(s[1:])
+	}
+
+	if len(res) > 100 {
+		return res[:100]
+	}
+
+	return res
+
+	// res := "#"
+	// isSpace := false
+	// for _, s := range caption {
+	// 	if len(res) == 1 && s != ' ' {
+	// 		res += strings.ToLower(string(s))
+	// 		isSpace = false
+	// 		continue
+	// 	}
+
+	// 	if s == ' ' {
+	// 		isSpace = true
+	// 		continue
+	// 	}
+
+	// 	if isSpace {
+	// 		res += strings.ToUpper(string(s))
+	// 		isSpace = false
+	// 		continue
+	// 	}
+
+	// 	if s >= 'A' && s <= 'Z' {
+	// 		res += strings.ToLower(string(s))
+	// 		continue
+	// 	}
+
+	// 	res += string(s)
+	// }
+
+	// if len(res) > 100 {
+	// 	return res[:100]
+	// }
+	// // fmt.Println("len data: ", len(res))
+	// // fmt.Println("data: ", res)
+	// return res
 }
 
 // Example 1:
